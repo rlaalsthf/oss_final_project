@@ -5,7 +5,7 @@ import random
 from urllib.parse import quote
 
 
-# FastAPI 주소 (환경변수로 받음 - EC2 배포 대응)
+# FastAPI 주소 
 FASTAPI_URL = os.environ.get("FASTAPI_URL", "http://localhost:8000")
 
 # 분위기 목록
@@ -34,7 +34,7 @@ st.divider()
 # 사용자 입력 폼
 st.subheader("🔍 나의 독서 스타일을 알려주세요")
 
-# 랜덤 버튼 - session_state 초기화
+# 랜덤 버튼 
 if "mood" not in st.session_state:
     st.session_state["mood"] = []
 
@@ -59,7 +59,6 @@ mood = st.multiselect(
     label_visibility="collapsed",
 )
 
-# 선택 안 한 경우 경고
 if len(mood) == 0:
     st.warning("분위기를 최소 1개 이상 선택해주세요!")
 
@@ -136,7 +135,7 @@ if st.button("📖 나에게 맞는 책 추천받기", type="primary", use_conta
     # 결과 출력
     st.success(f"✅ {data['total_checked']}개 판본 중 최적의 조합을 찾았어요!")
 
-    # 입력 조건 expander
+    # 입력 조건 
     with st.expander("📋 내가 입력한 조건 보기"):
         col_e1, col_e2 = st.columns(2)
         with col_e1:

@@ -5,7 +5,7 @@ import json
 recommend_router = APIRouter()
 
 
-# books.json 파일에서 책 데이터 로드
+#책 데이터 로드
 def load_books() -> list:
     with open("books.json", "r", encoding="utf-8") as f:
         return json.load(f)
@@ -17,7 +17,7 @@ BOOKS = load_books()
 def calculate_score(book: dict, req: RecommendRequest) -> int:
     score = 0
 
-    # 분위기 일치 (여러 개 중 하나라도 맞으면)
+    # 분위기 일치 
     if book["mood"] in req.mood:
         score += 5
 

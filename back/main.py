@@ -5,7 +5,6 @@ import uvicorn
  
 app = FastAPI(title="고전문학 출판사 추천기 API")
  
-# CORS 설정 (Streamlit에서 호출 가능하도록)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -13,7 +12,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
  
-# 라우터 등록
+
 app.include_router(recommend_router)
  
 @app.get("/")
