@@ -43,11 +43,6 @@ def calculate_score(book: dict, req: RecommendRequest) -> int:
     return score
 
 
-@recommend_router.get("/health")
-async def health_check() -> dict:
-    """EC2 실행 상태 확인용"""
-    return {"status": "ok", "message": "고전문학 출판사 추천기 API 정상 작동 중"}
-
 
 @recommend_router.post("/recommend", response_model=RecommendResponse)
 async def recommend(req: RecommendRequest) -> RecommendResponse:
