@@ -10,8 +10,7 @@ FASTAPI_URL = os.environ.get("FASTAPI_URL", "http://localhost:8000")
 
 # 분위기 목록
 MOODS = [
-    "성장/철학", "불안/부조리", "낭만/비극", "고독/의지",
-    "어둠/철학", "풍자/환상", "낭만/사회", "철학/사랑"
+    "성장/철학", "고독/실존", "낭만/비극", "어둠/풍자"
 ]
 
 # 페이지 설정
@@ -41,22 +40,22 @@ if "mood" not in st.session_state:
 
 col_mood, col_random = st.columns([3, 1])
 with col_mood:
-    st.write("**원하는 분위기** (최대 3개)")
+    st.write("**원하는 분위기** (최대 2개)")
 with col_random:
     if st.button("🎲 분위기 랜덤"):
         random_mood = random.choice(MOODS)
         if random_mood not in st.session_state["mood"]:
-            if len(st.session_state["mood"]) < 3:
+            if len(st.session_state["mood"]) < 2:
                 st.session_state["mood"].append(random_mood)
             else:
-                # 3개 이미 선택된 경우 하나 교체
+                # 2개 이미 선택된 경우 하나 교체
                 st.session_state["mood"][-1] = random_mood
 
 mood = st.multiselect(
     "분위기를 선택하세요",
     options=MOODS,
     default=st.session_state["mood"],
-    max_selections=3,
+    max_selections=2,
     label_visibility="collapsed",
 )
 
@@ -76,9 +75,9 @@ with col1:
 with col2:
     length = st.radio(
         "선호 길이",
-        options=["짧음", "보통", "길음"],
+        options=["짧음", "보통", "긺"],
         horizontal=True,
-        help="짧음: ~200p, 보통: 200~400p, 길음: 400p~",
+        help="짧음: 200p 이하 / 보통: 200~400p /  긺: 400p 이상",
     )
 
 translation_style = st.radio(
@@ -194,24 +193,24 @@ with st.sidebar:
     st.markdown(
         """
         **민음사 세계문학전집**  
-        - 1998년부터 시작된 국내 최장수 세계문학 시리즈  
-        - 원문에 충실한 번역, 고풍스러운 문체  
-        - 책등에 작가 사진이 인쇄된 것으로 유명  
+        - 1998년 오비디우스 『변신 이야기』로 시작된 국내 최장수 세계문학 시리즈  
+        - 원문의 무게감을 살린 정통 번역 스타일  
+        - 표지는 작가 사진·고전 명화·영화 스틸컷을 작품별로 선택적으로 사용  
 
         ---
 
         **문학동네 세계문학전집**  
-        - 현대적이고 세련된 번역 스타일  
-        - 가독성이 좋아 고전 입문자에게 추천  
-        - 감각적인 표지 디자인
+        - 2009년 출범, 현재는 민음사·열린책들과 함께 시장 3강으로 자리매김  
+        - 해당 작가·언어권 전공자를 우선 기용해 전문성과 가독성을 함께 추구  
+        - 국내 초역 비율이 높아 다른 전집에서 보기 힘든 작품도 다수 소개  
 
         ---
 
         **열린책들 세계문학**  
-        - 원문 충실성과 가독성의 균형  
-        - 편집 품질이 안정적  
-        - 러시아 문학 번역에 특히 강점  
+        - 러시아 문학 전문 출판사로 출발, 도스토옙스키 등 러시아 문학에 강점  
+        - '작가 중심 기획'으로 한 작가의 작품을 전작 단위로 소개  
+        - 하드커버 장정과 정교한 편집으로 소장 가치가 높은 판본  
         """
     )
     st.divider()
-    st.caption("📌 데이터 기준: 교보문고 판매 중인 판본")
+    st.caption("📌 데이터 기준: 출판사 공식 정보 및 독자 비교 자료를 바탕으로 정리")
